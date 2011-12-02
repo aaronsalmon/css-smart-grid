@@ -7,9 +7,8 @@ from dateutil import parser
 base_dir            =   os.path.join(os.getcwd(), 'css')
 tags                =   json.load(urllib.urlopen('https://github.com/api/v2/json/repos/show/dryan/css-smart-grid/tags'))['tags']
 current_version     =   tags.keys()[len(tags.keys()) - 1]
-latest_update       =   parser.parse(json.load(urllib.urlopen('https://github.com/api/v2/json/commits/show/dryan/css-smart-grid/%s' % tags[current_version]))['commit']['committed_date'])
 gutter_width        =   20
-columns             =   12
+columns             =   16
 ie_fallback_class   =   "oldie"
 ie_fallback_width   =   960
 breakpoints =   [
@@ -108,7 +107,6 @@ head_matter =   [
     ' * Copyright 2011 Daniel Ryan. All rights reserved.',
     ' * Code developed under a BSD License: https://raw.github.com/dryan/css-smart-grid/master/LICENSE.txt',
     ' * Version: %s' % opts.version,
-    ' * Latest update: %s' % latest_update.strftime('%Y-%m-%d'),
     ' */',
     '',
 ]
@@ -380,7 +378,7 @@ for i in range(0, len(breakpoints)):
                     if not breakpoint_suffixes[x] == breakpoint_suffix.strip('.'):
                         breakpoint_output.append('\t.%s.%s .offset-two-thirds,' % (container_class, breakpoint_suffixes[x]))
             breakpoint_output.append('\t.%s%s .offset-two-thirds {' % (container_class, breakpoint_suffix))
-            breakpoint_output.append('\t\tpadding-left: %dpx;' % (one_third * 2) + (opts.gutter_width * 2))
+            breakpoint_output.append('\t\tpadding-left: %spx;' % str((one_third * 2) + (opts.gutter_width * 2)))
             breakpoint_output.append('\t}')
             
         # do the fifths
